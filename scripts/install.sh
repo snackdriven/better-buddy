@@ -61,7 +61,7 @@ EOF
 fi
 
 # Merge using python3 (handles existing hooks gracefully)
-python3 - <<PYEOF
+PYTHONUTF8=1 python3 - <<PYEOF
 import json, sys, os
 
 settings_path = os.path.join(os.path.expanduser("~"), ".claude", "settings.json")
@@ -117,7 +117,7 @@ settings["hooks"] = hooks
 with open(settings_path, "w") as f:
     json.dump(settings, f, indent=2)
 
-print("  ✓ settings.json updated")
+print("  ok: settings.json updated")
 PYEOF
 
 echo ""
