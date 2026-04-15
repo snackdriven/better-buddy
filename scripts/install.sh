@@ -60,16 +60,17 @@ EOF
   exit 0
 fi
 
-# Create settings.json if it doesn't exist
-if [[ ! -f "$SETTINGS" ]]; then
-  echo '{}' > "$SETTINGS"
-fi
-
 # Merge using python3 (handles existing hooks gracefully)
 python3 - <<PYEOF
-import json, sys
+import json, sys, os
 
-with open("$SETTINGS") as f:
+settings_path = os.path.join(os.path.expanduser("~"), ".claude", "settings.json")
+os.makedirs(os.path.dirname(settings_path), exist_ok=True)
+if not os.path.exists(settings_path):
+    with open(settings_path, "w") as f:
+        json.dump({}, f)
+
+with open(settings_path) as f:
     settings = json.load(f)
 
 # Status line
@@ -113,7 +114,7 @@ hooks["Stop"] = stop_hooks
 
 settings["hooks"] = hooks
 
-with open("$SETTINGS", "w") as f:
+with open(settings_path, "w") as f:
     json.dump(settings, f, indent=2)
 
 print("  ✓ settings.json updated")
