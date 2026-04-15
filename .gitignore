@@ -1,0 +1,6 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# State file — personal, never commit
+buddy.json
