@@ -1,4 +1,0 @@
-# Per-user runtime state — never commit
-.cooldowns.json
-session-state.json
-events.log
