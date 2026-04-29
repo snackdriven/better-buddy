@@ -1,0 +1,3 @@
+# regions/ is generated at runtime by producers; do not commit region snapshots
+*.json
+!.gitkeep

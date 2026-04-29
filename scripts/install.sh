@@ -26,6 +26,16 @@ chmod +x "$CLAUDE_DIR/buddy-hook.sh"
 chmod +x "$CLAUDE_DIR/buddy-stop.sh"
 echo "  ✓ scripts → ~/.claude/"
 
+# 3a. Copy multi-region buddy/ system that buddy-status.sh delegates to
+mkdir -p "$CLAUDE_DIR/buddy/producers" "$CLAUDE_DIR/buddy/regions"
+cp "$REPO_DIR/scripts/buddy/render.sh" "$CLAUDE_DIR/buddy/render.sh"
+cp "$REPO_DIR/scripts/buddy/session-reset.sh" "$CLAUDE_DIR/buddy/session-reset.sh"
+cp "$REPO_DIR/scripts/buddy/build-conscience-index.sh" "$CLAUDE_DIR/buddy/build-conscience-index.sh"
+cp "$REPO_DIR/scripts/buddy/conscience-index.json" "$CLAUDE_DIR/buddy/conscience-index.json"
+cp "$REPO_DIR/scripts/buddy/producers/"*.sh "$CLAUDE_DIR/buddy/producers/"
+chmod +x "$CLAUDE_DIR/buddy/render.sh" "$CLAUDE_DIR/buddy/session-reset.sh" "$CLAUDE_DIR/buddy/build-conscience-index.sh" "$CLAUDE_DIR/buddy/producers/"*.sh
+echo "  ✓ buddy/ multi-region system → ~/.claude/buddy/"
+
 # 4. Merge settings.json
 # Requires: jq (preferred) or python3 fallback
 if ! command -v jq &>/dev/null && ! command -v python3 &>/dev/null; then
