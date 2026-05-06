@@ -50,7 +50,7 @@ esac
 if [[ -n "$event" ]]; then
   now=$(date +%s)
   # Use jq to safely update only the event fields
-  tmp=$(mktemp)
+  tmp=$(mktemp "${BUDDY_FILE}.tmp.XXXXXX")
   jq --arg ev "$event" --argjson ts "$now" \
     '.current_event = $ev | .event_ts = $ts' \
     "$BUDDY_FILE" > "$tmp" && mv "$tmp" "$BUDDY_FILE"
