@@ -3,6 +3,12 @@
 # Outputs a compact status line: face + name + affection + hunger + event reaction
 # Invoked by Claude Code as a status line command; receives JSON on stdin
 
+# Delegate to multi-region renderer if installed (claude-statusline)
+RENDERER="$HOME/.claude/buddy/render.sh"
+if [[ -f "$RENDERER" ]]; then
+  exec bash "$RENDERER"
+fi
+
 BUDDY_FILE="$HOME/.claude/buddy.json"
 
 # Read buddy state
