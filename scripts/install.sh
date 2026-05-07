@@ -18,13 +18,18 @@ cp "$REPO_DIR/buddy.md" "$CLAUDE_DIR/commands/buddy.md"
 echo "  ✓ buddy.md → ~/.claude/commands/buddy.md"
 
 # 3. Copy scripts
-cp "$REPO_DIR/scripts/buddy-status.sh" "$CLAUDE_DIR/buddy-status.sh"
+if [[ -f "$CLAUDE_DIR/buddy/render.sh" ]]; then
+  echo "  ✓ buddy-status.sh (skipped — render.sh present, CSL owns this)"
+else
+  cp "$REPO_DIR/scripts/buddy-status.sh" "$CLAUDE_DIR/buddy-status.sh"
+  chmod +x "$CLAUDE_DIR/buddy-status.sh"
+  echo "  ✓ buddy-status.sh → standalone"
+fi
 cp "$REPO_DIR/scripts/buddy-hook.sh" "$CLAUDE_DIR/buddy-hook.sh"
 cp "$REPO_DIR/scripts/buddy-stop.sh" "$CLAUDE_DIR/buddy-stop.sh"
-chmod +x "$CLAUDE_DIR/buddy-status.sh"
 chmod +x "$CLAUDE_DIR/buddy-hook.sh"
 chmod +x "$CLAUDE_DIR/buddy-stop.sh"
-echo "  ✓ scripts → ~/.claude/"
+echo "  ✓ buddy-hook.sh, buddy-stop.sh → ~/.claude/"
 
 # 4. Merge settings.json
 # Requires: jq (preferred) or python3 fallback
